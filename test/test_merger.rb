@@ -77,6 +77,27 @@ class TestMerger < Test::Unit::TestCase
  [17/Jan/2006:00:00:01 -0800] 
  [17/Jan/2006:00:00:02 -0800] 
     EOF
+ 
+    assert_equal true, merger.all_closed?
+    assert_equal expected, output.string
+  end
+  
+  def test_empty_files
+    require 'tempfile'
+    tf = Tempfile.new('test_empty_file')
+    tf.flush
+
+    stream1 = File.open(tf.path) # empty file1
+    stream2 = File.open(tf.path) # empty file2
+    stream3 = File.open(tf.path) # empty file3
+
+    merger = LogMerge::Merger.new [stream1, stream2, stream3]
+
+    output = StringIO.new
+
+    merger.merge output
+
+    expected = ""
 
     assert_equal true, merger.all_closed?
     assert_equal expected, output.string

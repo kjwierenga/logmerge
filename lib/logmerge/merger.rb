@@ -23,8 +23,15 @@ class LogMerge::Merger
   def initialize(streams)
     @streams = streams
     @buf = []
-
-    @streams.each_index { |slot| buf_fill slot }
+    
+    # The next line causes failure a stream is empty (eof? == true)
+    # because buf_fill removes an element from @stream causing the each_index
+    # iterator to stop iterating too early.
+    # @streams.each_index { |slot| buf_fill slot }
+    
+    # Remove any empty streams from the end and make sure we iterate over all
+    # elements of @streams.
+    @streams.size.downto(1) { |slot| buf_fill slot-1 }
 
     @all_closed = @streams.empty?
   end
