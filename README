@@ -1,0 +1,35 @@
+= logmerge
+
+Rubyforge Project:
+
+http://rubyforge.org/projects/rctools/
+
+== About
+
+Logmerge contains two utilities logmerge and ip2name.  logmerge merges Apache
+access logs into one log ordered by date.  ip2name performs DNS lookups on
+Apache access logs using multiple threads and Ruby's DNS resolver library to
+speed through log files.
+
+== Using logmerge
+
+Simply pass in all the logs you want to merge on the command line.  logmerge
+gives you the merged log on STDOUT.
+
+  logmerge hal/access.log nestor/access.log herbie/access.log > merged.log
+
+Note that logmerge expects the input log files to be ordered by date.
+
+== Using ip2name
+
+Simply pass in the log files you want to perform DNS lookups on the command
+line or via STDIN.  ip2name gives you the looked-up log lines on STDOUT.
+
+  ip2name < merged.log > resolved.log
+
+  ip2name merged.log > resolved.log
+
+In order to speed DNS lookups, ip2name creates a .name_cache file in the
+current directory.  ip2name uses double the DNS record TTL value so
+rapidly-changing names may not be correctly resolved.
+

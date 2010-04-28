@@ -1,0 +1,8 @@
+#!/usr/local/bin/ruby -w
+
+require 'logmerge'
+
+Thread.abort_on_exception = true
+
+LogMerge::IPResolver.resolve
+

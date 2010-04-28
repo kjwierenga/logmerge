@@ -1,0 +1,26 @@
+#!/usr/local/bin/ruby -ws
+
+# This checks Ruby's resolv.rb to see if #ttl is available.  When #ttl is
+# available, then lib/logmerge/resolv.rb can be removed.
+
+$ruby ||= false
+$mine ||= false
+
+if $ruby then
+  require 'resolv'
+elsif $mine then
+  require 'lib/logmerge/resolv'
+else
+  raise ArgumentError, "#$0 -mine|-ruby"
+end
+
+dns = Resolv::DNS.new
+ip = '138.217.248.136'
+ipv4 = Resolv::IPv4.create ip
+p ipv4.to_name
+
+dns.each_resource ipv4.to_name, Resolv::DNS::Resource::IN::PTR do |r|
+  p r.name.to_s
+  p r.ttl
+end
+
