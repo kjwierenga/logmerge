@@ -7,7 +7,7 @@ $VERBOSE = nil
 
 spec = Gem::Specification.new do |s|
   s.name = 'logmerge'
-  s.version = '1.0.1'
+  s.version = '1.0.2'
   s.summary = 'Resolves IP addresses and merges Apache access logs.'
   s.authors = [ 'Eric Hodel', 'Klaas Jan Wierenga' ]
   s.email = [ 'eric@robotcoop.com', 'k.j.wierenga@gmail.com' ]

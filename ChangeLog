@@ -1,6 +1,6 @@
 2010-05-04  Klaas Jan Wierenga  <k.j.wierenga@gmail.com>
 
-  * Release version 1.0.1
+  * Release version 1.0.2
 
   * This ChangeLog will not be update anymore. Use `git log` for ChangeLog
     information on this and future version. http://github.com/kjwierenga/logmerge
