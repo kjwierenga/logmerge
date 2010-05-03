@@ -11,6 +11,12 @@ spec = Gem::Specification.new do |s|
   s.summary = 'Resolves IP addresses and merges Apache access logs.'
   s.authors = [ 'Eric Hodel', 'Klaas Jan Wierenga' ]
   s.email = [ 'eric@robotcoop.com', 'k.j.wierenga@gmail.com' ]
+  s.homepage = 'http://github.com/kjwierenga/logmerge'
+  s.description = "
+    Logmerge contains two utilities logmerge and ip2name.  logmerge merges Apache
+    access logs into one log ordered by date.  ip2name performs DNS lookups on
+    Apache access logs using multiple threads and Ruby's DNS resolver library to
+    speed through log files."
 
   s.files = File.read('Manifest.txt').split($/)
   s.require_path = 'lib'
