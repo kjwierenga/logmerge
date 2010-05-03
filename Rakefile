@@ -9,8 +9,8 @@ spec = Gem::Specification.new do |s|
   s.name = 'logmerge'
   s.version = '1.0.1'
   s.summary = 'Resolves IP addresses and merges Apache access logs.'
-  s.author = 'Eric Hodel'
-  s.email = 'eric@robotcoop.com'
+  s.authors = [ 'Eric Hodel', 'Klaas Jan Wierenga' ]
+  s.email = [ 'eric@robotcoop.com', 'k.j.wierenga@gmail.com' ]
 
   s.files = File.read('Manifest.txt').split($/)
   s.require_path = 'lib'
