@@ -1,0 +1,11 @@
+2010-05-04  Klaas Jan Wierenga  <k.j.wierenga@gmail.com>
+
+  * Release version 1.0.1
+
+  * This ChangeLog will not be update anymore. Use `git log` for ChangeLog
+    information on this and future version. http://github.com/kjwierenga/logmerge
+
+2006-01-20  Eric Hodel  <eric@robotcoop.com>
+
+  * Release version 1.0.0
+    Initial release of logmerge
