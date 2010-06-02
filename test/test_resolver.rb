@@ -142,7 +142,7 @@ class TestResolver < Test::Unit::TestCase
 
     assert_equal ['0.0.0.0'], @resolver.failures
 
-    assert_equal ['0.0.0.0', '65.61.137.67'], @resolver.cache.keys
+    assert_equal ['0.0.0.0', '65.61.137.67'].sort, @resolver.cache.keys.sort
     assert_equal 0, @resolver.cache['0.0.0.0'].last
     assert_operator 0, :<, @resolver.cache['65.61.137.67'].last
   end
@@ -156,8 +156,7 @@ class TestResolver < Test::Unit::TestCase
 
     assert_equal ['0.0.0.0'], @resolver.failures
 
-    assert_equal ['0.0.0.0', '65.61.137.67', '65.61.137.68'],
-                 @resolver.cache.keys
+    assert_equal ['0.0.0.0', '65.61.137.67', '65.61.137.68'].sort, @resolver.cache.keys.sort
     assert_equal 0, @resolver.cache['0.0.0.0'].last
     assert_operator 0, :<, @resolver.cache['65.61.137.67'].last
     assert_equal 0, @resolver.cache['65.61.137.68'].last
