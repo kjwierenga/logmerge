@@ -1,6 +1,7 @@
 $TESTING = defined? $TESTING
 
 require 'logmerge'
+require 'zlib'
 
 ##
 # Merges multiple Apache log files by date.
@@ -12,7 +13,13 @@ class LogMerge::Merger
 
   def self.merge(output = STDOUT, *files)
     files = ARGV if files.empty?
-    merger = LogMerge::Merger.new files.map { |file| File.open file }
+    merger = LogMerge::Merger.new files.map { |file|
+      if file =~ /\.gz$/
+        Zlib::GzipReader.open file
+      else
+        File.open file
+      end
+    }
     merger.merge output
   end
 

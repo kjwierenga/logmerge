@@ -102,6 +102,61 @@ class TestMerger < Test::Unit::TestCase
     assert_equal true, merger.all_closed?
     assert_equal expected, output.string
   end
+  
+  def test_merge_files
+    require 'tempfile'
+    file1 = Tempfile.open('gzip_file1')
+    file1.puts " [17/Jan/2006:00:00:02 -0800] "
+    file1.close
+    
+    file2 = Tempfile.open('gzip_file2')
+    file2.puts " [17/Jan/2006:00:00:01 -0800] "
+    file2.close
+    
+    # puts file1.path, file2.path
+    # STDOUT.flush
+    
+    output = StringIO.new
+    LogMerge::Merger.merge output, *[file1.path, file2.path]
+    
+    expected = <<-EOF
+ [17/Jan/2006:00:00:01 -0800] 
+ [17/Jan/2006:00:00:02 -0800] 
+EOF
+
+    assert_equal expected, output.string
+  end
+
+  def test_merge_gzip_files
+    begin
+      require 'tempfile'
+      file1 = Tempfile.new('logmerge_test1')
+      gzipped_file1 = file1.path + '.gz'
+      Zlib::GzipWriter.open(gzipped_file1) do |gz|
+        gz.write " [17/Jan/2006:00:00:02 -0800] \n"
+      end
+
+      file2 = Tempfile.new('logmerge_test2')
+      gzipped_file2 = file2.path + '.gz'
+      Zlib::GzipWriter.open(gzipped_file2) do |gz|
+        gz.write " [17/Jan/2006:00:00:01 -0800] \n"
+      end
+    
+      gzipped_files = [ gzipped_file1, gzipped_file2 ]
+    
+      output = StringIO.new
+      LogMerge::Merger.merge output, *gzipped_files
+    
+      expected = <<-EOF
+ [17/Jan/2006:00:00:01 -0800] 
+ [17/Jan/2006:00:00:02 -0800] 
+EOF
+
+      assert_equal expected, output.string
+    ensure
+      File.unlink(*gzipped_files)
+    end
+  end
 
 end
 
